@@ -1,0 +1,109 @@
+<html>
+<head>
+    <script type="text/javascript" src="sb-1.4.1.min.js"></script>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+This is a simple tool for sending values to the spacebrew server, which is at: <a href="http://192.168.1.96:9000/?server=192.168.1.96" target="_blank">http://192.168.1.96:9000/?server=192.168.1.96</a>
+
+<BR><BR>
+
+String1: <input type="text" id="String1" length=40/><span id="String1Send">Send</span><BR>
+String2: <input type="text" id="String2" length=40/><span id="String2Send">Send</span><BR>
+String3: <input type="text" id="String3" length=40/><span id="String3Send">Send</span><BR>
+String4: <input type="text" id="String4" length=40/><span id="String4Send">Send</span><BR>
+
+Button1 : <span id="Button1Send">Send</span><BR>
+Button2 : <span id="Button2Send">Send</span><BR>
+Button3 : <span id="Button3Send">Send</span><BR>
+Button4 : <span id="Button4Send">Send</span><BR>
+
+
+<script>
+var sb_server = "192.168.1.96";
+var sb = false; 
+var app_name = "simple spacebrew controller";
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+
+    sb = new Spacebrew.Client(sb_server, app_name, app_name, {reconnect: true} );
+
+    sb.addPublish("String1", "string");
+    sb.addPublish("String2", "string");
+    sb.addPublish("String3", "string");
+    sb.addPublish("String4", "string");
+    sb.addPublish("click1", "boolean");
+    sb.addPublish("click2", "boolean");
+    sb.addPublish("click3", "boolean");
+    sb.addPublish("click4", "boolean");
+
+
+
+    sb.connect();
+
+
+
+
+   $("#String1Send").click(function(){
+        console.log("clieck");
+        console.log($("#String1").val());
+
+        var value = $("#String1").val();
+        sb.send("String1", "string", value.trim() );
+
+   });
+
+   $("#String2Send").click(function(){
+        console.log("clieck");
+        console.log($("#String2").val());
+
+        var value = $("#String2").val();
+        sb.send("String2", "string", value.trim() );
+   });
+
+      $("#String3Send").click(function(){
+        console.log("clieck");
+        console.log($("#String3").val());
+
+        var value = $("#String3").val();
+        sb.send("String3", "string", value.trim() );
+   });
+
+      $("#String4Send").click(function(){
+        console.log("clieck");
+        console.log($("#String4").val());
+
+        var value = $("#String4").val();
+        sb.send("String4", "string", value.trim() );
+   });  
+
+
+   $("#Button1Send").click(function(){
+        console.log("clieck");
+        sb.send("click1", "boolean", "true" );
+   });  
+   $("#Button2Send").click(function(){
+        console.log("clieck");
+        sb.send("click2", "boolean", "true" );
+   });  
+   $("#Button3Send").click(function(){
+        console.log("clieck");
+        sb.send("click3", "boolean", "true" );
+   });  
+   $("#Button4Send").click(function(){
+        console.log("clieck");
+        sb.send("click4", "boolean", "true" );
+   });  
+
+
+});
+
+
+</script>
+</body>
+
+
+</html>
